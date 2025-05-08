@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Embassy of Italy in Tehran</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    header {
+      background-color: #b3e0ff;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      height: 40px;
+      margin-left: 10px;
+    }
+
+    header h2 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .image-container {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 80px;
+      padding-bottom: 140px;
+    }
+
+    .image-container img {
+      max-width: 90%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    footer {
+      background-color: #ffffff;
+      padding: 10px 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .download-btn, .exit-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .download-btn {
+      background-color: #004d40;
+    }
+
+    .exit-btn {
+      background-color: #d32f2f;
+    }
+
+    .download-btn:hover {
+      background-color: #00796b;
+    }
+
+    .exit-btn:hover {
+      background-color: #b71c1c;
+    }
+
+    .process-btn {
+      background: linear-gradient(135deg, #058553, #058553);
+      color: white;
+      padding: 6px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 3px 15px rgba(0, 191, 165, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .process-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 191, 165, 0.5);
+    }
+
+    #lockScreen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background: white;
+      z-index: 9999;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    #lockScreen input {
+      padding: 10px;
+      width: 200px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    #errorLock {
+      color: red;
+    }
+
+    #loadingScreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      z-index: 9998;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loadingScreen img {
+      width: 100px;
+    }
+
+    #siteContent {
+      display: none;
+      flex-grow: 1;
+      padding-top: 80px;
+      padding-bottom: 140px;
+      text-align: center;
+    }
+
+    #passwordPrompt {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 10000;
+    }
+
+    #passwordPrompt input {
+      margin: 10px 0;
+      padding: 8px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="lockScreen">
+    <h2>Please enter UC number</h2>
+    <input type="password" id="accessCode" placeholder="Enter UC Number">
+    <button onclick="unlockSite()" class="process-btn">Process</button>
+    <div id="errorLock"></div>
+  </div>
+
+  <div id="loadingScreen">
+    <img src="loading.gif" alt="Loading...">
+  </div>
+
+  <div id="siteContent">
+    <header>
+      <img src="logo.png" alt="Logo" />
+      <h2>Embassy of Italy in Tehran</h2>
+    </header>
+
+    <div class="image-container">
+      <img src="yourimage.jpg" alt="Italy embassy in Tehran">
+    </div>
+
+    <footer>
+      <button class="download-btn" onclick="showPrompt()">Download Result</button>
+      <button class="exit-btn" onclick="window.close()">EXIT</button>
+    </footer>
+  </div>
+
+  <div id="passwordPrompt">
+    <p>Enter UC number:</p>
+    <input type="password" id="passwordInput" placeholder="Enter UC number">
+    <br>
+    <button onclick="checkPassword()" class="download-btn">Download</button>
+    <button onclick="closePrompt()" class="exit-btn">Exit</button>
+    <div id="errorMessage"></div>
+  </div>
+
+  <script>
+    const correctPassword = "64511169";
+
+    function unlockSite() {
+      const input = document.getElementById("accessCode").value;
+      if (input === correctPassword) {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("loadingScreen").style.display = "flex";
+
+        setTimeout(() => {
+          document.getElementById("loadingScreen").style.display = "none";
+          document.getElementById("siteContent").style.display = "block";
+        }, 3000);
+      } else {
+        document.getElementById("errorLock").innerText = "UC not found  .";
+      }
+    }
+
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      if (input === correctPassword) {
+        const link = document.createElement('a');
+        link.href = 'yourfile.pdf';
+        link.download = 'yourfile.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        closePrompt();
+      } else {
+        document.getElementById("errorMessage").innerText = "Your UC number is incorrect.";
+      }
+    }
+
+    function closePrompt() {
+      document.getElementById("passwordPrompt").style.display = "none";
+    }
+
+    function showPrompt() {
+      document.getElementById("passwordPrompt").style.display = "block";
+      document.getElementById("errorMessage").innerText = "";
+      document.getElementById("passwordInput").value = "";
+    }
+  </script>
+
+</body>
+</html>
