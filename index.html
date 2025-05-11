@@ -106,51 +106,8 @@
       box-shadow: 0 10px 24px rgba(0, 191, 165, 0.5);
     }
 
-    #lockScreen {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      background: white;
-      z-index: 9999;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-    }
-
-    #lockScreen input {
-      padding: 10px;
-      width: 200px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-
-    #errorLock {
-      color: red;
-    }
-
-    #loadingScreen {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: white;
-      z-index: 9998;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #loadingScreen img {
-      width: 100px;
-    }
-
     #siteContent {
-      display: none;
+      display: block;
       flex-grow: 1;
       padding-top: 80px;
       padding-bottom: 140px;
@@ -179,17 +136,6 @@
 </head>
 <body>
 
-  <div id="lockScreen">
-    <h2>Please enter UC number</h2>
-    <input type="text" id="accessCode" placeholder="Enter UC Number">
-    <button onclick="unlockSite()" class="process-btn">Process</button>
-    <div id="errorLock"></div>
-  </div>
-
-  <div id="loadingScreen">
-    <img src="Loading.gif" alt="Loading...">
-  </div>
-
   <div id="siteContent">
     <header>
       <img src="logo.png" alt="Logo" />
@@ -197,9 +143,31 @@
     </header>
 
     <div class="image-container">
-      <img src="yourimage.jpg" alt="Italy embassy in Tehran">
+      <img src="64511169.jpg" alt="Italy embassy in Tehran">
     </div>
-
+    <div class="image-container">
+      <img src="64511169M.jpg" alt="Italy embassy in Tehran">
+    </div>
+      </div>
+    <div class="image-container">
+      <img src="64511169F.jpg" alt="Italy embassy in Tehran">
+    </div>
+    </div>
+    <div class="image-container">
+      <img src="64511169BI.jpg" alt="Italy embassy in Tehran">
+    </div>
+      <div class="image-container">
+      <img src="64511169BA.jpg" alt="Italy embassy in Tehran">
+    </div>
+      <div class="image-container">
+      <img src="64511169BB.jpg" alt="Italy embassy in Tehran">
+    </div>
+      <div class="image-container">
+      <img src="64511169BM.jpg" alt="Italy embassy in Tehran">
+    </div>
+      <div class="image-container">
+      <img src="64511169S.jpg" alt="Italy embassy in Tehran">
+    </div>
     <footer>
       <button class="download-btn" onclick="showPrompt()">Download Result</button>
       <button class="exit-btn" onclick="window.close()">EXIT</button>
@@ -218,27 +186,12 @@
   <script>
     const correcttext = "64511169";
 
-    function unlockSite() {
-      const input = document.getElementById("accessCode").value;
-      if (input === correcttext) {
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("loadingScreen").style.display = "flex";
-
-        setTimeout(() => {
-          document.getElementById("loadingScreen").style.display = "none";
-          document.getElementById("siteContent").style.display = "block";
-        }, 3000);
-      } else {
-        document.getElementById("errorLock").innerText = "UC not found  .";
-      }
-    }
-
     function checktext() {
       const input = document.getElementById("textInput").value;
       if (input === correcttext) {
         const link = document.createElement('a');
-        link.href = 'yourfile.pdf';
-        link.download = 'UC 64511169.pdf';
+        link.href = 'UC 64511169.pdf';  // <- اینجا فایل PDF را تغییر دهید
+        link.download = 'Interview Results.pdf';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
